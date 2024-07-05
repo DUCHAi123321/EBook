@@ -283,12 +283,12 @@ public class AddBookOfDAOBookTest {
     }
 
     @Test
-    void addBookWithPriceEqualZero() {
+    void addBookWithPriceIsEmpty() {
         DAOBook daoBook = new DAOBook();
         Book book = new Book();
         book.setBookName("English");
         book.setAuthor("HaiDuc");
-        book.setPrice(0);
+        book.setPrice(Double.parseDouble("abc"));
         book.setBookCategory("old book");
         book.setStatus("active");
         book.setPhoto("english.jpg");
@@ -306,6 +306,23 @@ public class AddBookOfDAOBookTest {
         book.setBookName("English");
         book.setAuthor("HaiDuc");
         book.setPrice(-1);
+        book.setBookCategory("old book");
+        book.setStatus("active");
+        book.setPhoto("english.jpg");
+        book.setEmail("haiduc@gmail.com");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            daoBook.AddBook(book);
+        });
+        assertEquals("Price must be positive",exception);
+    }
+
+    @Test
+    void addBookWithPriceEqualZero() {
+        DAOBook daoBook = new DAOBook();
+        Book book = new Book();
+        book.setBookName("English");
+        book.setAuthor("HaiDuc");
+        book.setPrice(0);
         book.setBookCategory("old book");
         book.setStatus("active");
         book.setPhoto("english.jpg");
@@ -400,20 +417,77 @@ public class AddBookOfDAOBookTest {
 
     }
 
+    //========================================== BookCategory ================================================
+
     @Test
-    void addBookWithPriceIsEmpty() {
+    void addBookWithCategoryIsEmpty() {
         DAOBook daoBook = new DAOBook();
         Book book = new Book();
         book.setBookName("English");
         book.setAuthor("HaiDuc");
-        book.setPrice(Double.parseDouble("abc"));
-        book.setBookCategory("old book");
+        book.setPrice(20);
+        book.setBookCategory("");
         book.setStatus("active");
         book.setPhoto("english.jpg");
         book.setEmail("haiduc@gmail.com");
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             daoBook.AddBook(book);
         });
-        assertEquals("Price must be positive",exception);
+        assertEquals("Book fields cannot be empty", exception);
+    }
+
+    //========================================== Status ================================================
+
+    @Test
+    void addBookWithStatusIsEmpty() {
+        DAOBook daoBook = new DAOBook();
+        Book book = new Book();
+        book.setBookName("English");
+        book.setAuthor("HaiDuc");
+        book.setPrice(20);
+        book.setBookCategory("New book");
+        book.setStatus("");
+        book.setPhoto("english.jpg");
+        book.setEmail("haiduc@gmail.com");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            daoBook.AddBook(book);
+        });
+        assertEquals("Book fields cannot be empty", exception);
+    }
+
+    //========================================== Photo ================================================
+
+    @Test
+    void addBookWithPhotoIsEmpty() {
+        DAOBook daoBook = new DAOBook();
+        Book book = new Book();
+        book.setBookName("English");
+        book.setAuthor("HaiDuc");
+        book.setPrice(20);
+        book.setBookCategory("New book");
+        book.setStatus("Active");
+        book.setPhoto("");
+        book.setEmail("haiduc@gmail.com");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            daoBook.AddBook(book);
+        });
+        assertEquals("Book fields cannot be empty", exception);
+    }
+
+    @Test
+    void addBookWithPhotoInvalidFormat() {
+        DAOBook daoBook = new DAOBook();
+        Book book = new Book();
+        book.setBookName("English");
+        book.setAuthor("HaiDuc");
+        book.setPrice(20);
+        book.setBookCategory("New book");
+        book.setStatus("Active");
+        book.setPhoto("English.docx");   // sai dinh dang
+        book.setEmail("haiduc@gmail.com");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            daoBook.AddBook(book);
+        });
+        assertEquals("Book fields cannot be empty", exception);
     }
 }

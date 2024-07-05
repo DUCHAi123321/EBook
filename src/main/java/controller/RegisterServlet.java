@@ -34,6 +34,10 @@ public class RegisterServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
+        final String REGISTER = "register.jsp";
+        final String FAILED_MSG = "failedMsg";
+
         try ( PrintWriter out = response.getWriter()) {
             String fname = request.getParameter("fname");
             String email = request.getParameter("email");
@@ -57,23 +61,23 @@ public class RegisterServlet extends HttpServlet {
                     if (n > 0) {
                         session.setAttribute("successMsg",
                                 "Registration Successfully");
-                        response.sendRedirect("register.jsp");
+                        response.sendRedirect(REGISTER);
                     } else {
-                        session.setAttribute("failedMsg",
+                        session.setAttribute(FAILED_MSG,
                                 "Something wrong on server...");
-                        response.sendRedirect("register.jsp");
+                        response.sendRedirect(REGISTER);
                     }
                 }
                 else
                 {
-                    session.setAttribute("failedMsg",
+                    session.setAttribute(FAILED_MSG,
                             "User Already Exist Try Another Email");
-                    response.sendRedirect("register.jsp");
+                    response.sendRedirect(REGISTER);
                 }
             } else {
-                session.setAttribute("failedMsg",
+                session.setAttribute(FAILED_MSG,
                         "Please Check Agree and Terms Condition");
-                response.sendRedirect("register.jsp");
+                response.sendRedirect(REGISTER);
             }
         }
     }

@@ -34,6 +34,10 @@ public class ChangePass extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
+        final String CHANGE_PASS_WORD = "changepassword.jsp";
+        final String FAILED_MSG = "failedMsg";
+
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
             User u = (User) session.getAttribute("userobj");
@@ -48,18 +52,18 @@ public class ChangePass extends HttpServlet {
                     int n = dao.setPassword(u.getId(), newpass);
                     if (n > 0) {
                         session.setAttribute("successMsg", "Update Password Successfully");
-                        response.sendRedirect("changepassword.jsp");
+                        response.sendRedirect(CHANGE_PASS_WORD);
                     } else {
-                        session.setAttribute("failedMsg", "Something wrong on server....");
-                        response.sendRedirect("changepassword.jsp");
+                        session.setAttribute(FAILED_MSG, "Something wrong on server....");
+                        response.sendRedirect(CHANGE_PASS_WORD);
                     }
                 } else {
-                    session.setAttribute("failedMsg", "Please check repassword");
-                    response.sendRedirect("changepassword.jsp");
+                    session.setAttribute(FAILED_MSG, "Please check repassword");
+                    response.sendRedirect(CHANGE_PASS_WORD);
                 }
             } else {
-                session.setAttribute("failedMsg", "Please check password right");
-                response.sendRedirect("changepassword.jsp");
+                session.setAttribute(FAILED_MSG, "Please check password right");
+                response.sendRedirect(CHANGE_PASS_WORD);
             }
         }
     }
