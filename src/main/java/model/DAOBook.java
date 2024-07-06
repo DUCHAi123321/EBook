@@ -18,8 +18,7 @@ public class DAOBook extends DBConnect {
                 book.getAuthor() == null || book.getAuthor().isEmpty() ||
                 book.getBookCategory() == null || book.getBookCategory().isEmpty() ||
                 book.getStatus() == null || book.getStatus().isEmpty() ||
-                book.getPhoto() == null || book.getPhoto().isEmpty() ||
-                book.getEmail() == null || book.getEmail().isEmpty()) {
+                book.getPhoto() == null || book.getPhoto().isEmpty()) {
             throw new IllegalArgumentException("Cannot be empty");
         }
 
@@ -30,12 +29,13 @@ public class DAOBook extends DBConnect {
 
         // Check if bookName is entirely digits
         if (book.getBookName().matches("\\d+")) {
-            throw new IllegalArgumentException("Cannot be entirely numeric");
+            return 0;
+//            throw new IllegalArgumentException("Cannot be entirely numeric");
         }
 
         // Check if price is zero or negative
         if (book.getPrice() <= 0) {
-            throw new IllegalArgumentException("Price must be positive number");
+            return 0;
         }
 
         int n = 0;
