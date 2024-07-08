@@ -10,6 +10,7 @@ public class DAOBookTest {
     //===================================== AddBook (HaiDuc) =================================================
     //===================================== Book Object =====================================================
 
+    //AB01
     @Test
     void addBookWithBookObjectIsNull() {
         DAOBook daoBook = new DAOBook();
@@ -20,20 +21,9 @@ public class DAOBookTest {
         assertEquals("Cannot be empty",exception.getMessage());
     }
 
-    @Test
-    void addBookWithBookObjectIsEmpty() {
-        DAOBook daoBook = new DAOBook();
-        Book book = new Book();
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            daoBook.AddBook(book);
-        });
-
-        assertEquals("Cannot be empty",exception.getMessage());
-    }
-
     //===================================== Book Name =====================================================
 
-
+    //AB02
     @Test
     void addBookWithBookNameIsNull() {
         DAOBook daoBook = new DAOBook();
@@ -49,6 +39,7 @@ public class DAOBookTest {
         assertEquals("Cannot be empty", exception.getMessage());
     }
 
+    //AB03
     @Test
     void addBookWithBookNameIsEmpty() {
         DAOBook daoBook = new DAOBook();
@@ -65,7 +56,7 @@ public class DAOBookTest {
         assertEquals("Cannot be empty",exception.getMessage());
     }
 
-
+    //AB04
     @Test
     void addBookWithBookNameMin() {
         DAOBook daoBook = new DAOBook();
@@ -76,26 +67,26 @@ public class DAOBookTest {
         book.setBookCategory("old book");
         book.setStatus("active");
         book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
         int result = daoBook.AddBook(book);
         assertEquals(1,result);
     }
 
+    //AB05
     @Test
     void addBookWithBookNameMax() {
         DAOBook daoBook = new DAOBook();
         Book book = new Book();
-        book.setBookName("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"); //51 characters
+        book.setBookName("E".repeat(50)); //50 characters
         book.setAuthor("HaiDuc");
         book.setPrice(10);
         book.setBookCategory("old book");
         book.setStatus("active");
         book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
         int result = daoBook.AddBook(book);
         assertEquals(1,result);
     }
 
+    //AB06
     @Test
     void addBookWithBookObjectIsValid() {
         DAOBook daoBook = new DAOBook();
@@ -106,29 +97,28 @@ public class DAOBookTest {
         book.setBookCategory("old book");
         book.setStatus("active");
         book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
         int result = daoBook.AddBook(book);
         assertEquals(1,result);
     }
 
+    //AB07
     @Test
     void addBookWithBookNameMoreThan50Characters() {
         DAOBook daoBook = new DAOBook();
         Book book = new Book();
-        book.setBookName("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"); //51 characters
+        book.setBookName("E".repeat(51)); //51 characters
         book.setAuthor("HaiDuc");
         book.setPrice(10);
         book.setBookCategory("old book");
         book.setStatus("active");
         book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             daoBook.AddBook(book);
         });
         assertEquals("Cannot exceed 50 characters",exception.getMessage());
     }
 
-
+    //AB08
     @Test
     void addBookWithBookNameIsDigit() {
         DAOBook daoBook = new DAOBook();
@@ -139,141 +129,15 @@ public class DAOBookTest {
         book.setBookCategory("old book");
         book.setStatus("active");
         book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
-        int result = daoBook.AddBook(book);
-        assertEquals(0,result);
-    }
-
-    @Test
-    void addBookWithBookNameContainWhiteSpace() {
-        DAOBook daoBook = new DAOBook();
-        Book book = new Book();
-        book.setBookName("   "); // 3 spaces
-        book.setAuthor("HaiDuc");
-        book.setPrice(10);
-        book.setBookCategory("old book");
-        book.setStatus("active");
-        book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
-        int result = daoBook.AddBook(book);
-        assertEquals(0,result);
-    }
-
-
-    //========================================== Author ================================================
-    @Test
-    void addBookWithAuthorIsNull() {
-        DAOBook daoBook = new DAOBook();
-        Book book = new Book();
-        book.setBookName("English");
-        book.setPrice(10);
-        book.setBookCategory("old book");
-        book.setStatus("active");
-        book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
-        Exception   exception = assertThrows(IllegalArgumentException.class,() -> {
-            daoBook.AddBook(book);
-        });
-        assertEquals("Cannot be empty", exception.getMessage());
-    }
-
-    @Test
-    void addBookWithAuthorIsEmpty() {
-        DAOBook daoBook = new DAOBook();
-        Book book = new Book();
-        book.setBookName("English");
-        book.setAuthor("");
-        book.setPrice(10);
-        book.setBookCategory("old book");
-        book.setStatus("active");
-        book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             daoBook.AddBook(book);
         });
-        assertEquals("Cannot be empty", exception.getMessage());
+        assertEquals("Cannot be entirely numeric",exception.getMessage());
     }
-
-
-    @Test
-    void addBookWithAuthorMin() {
-        DAOBook daoBook = new DAOBook();
-        Book book = new Book();
-        book.setBookName("English");
-        book.setAuthor("Hai");
-        book.setPrice(10);
-        book.setBookCategory("old book");
-        book.setStatus("active");
-        book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
-        int result = daoBook.AddBook(book);
-        assertEquals(1,result);
-    }
-
-    @Test
-    void addBookWithAuthorMax() {
-        DAOBook daoBook = new DAOBook();
-        Book book = new Book();
-        book.setBookName("English"); //51 characters
-        book.setAuthor("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH"); // 50 characters
-        book.setPrice(10);
-        book.setBookCategory("old book");
-        book.setStatus("active");
-        book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
-        int result = daoBook.AddBook(book);
-        assertEquals(1,result);
-    }
-
-    @Test
-    void addBookWithAuthorMoreThan50Characters() {
-        DAOBook daoBook = new DAOBook();
-        Book book = new Book();
-        book.setBookName("English"); //51 characters
-        book.setAuthor("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH"); // 51 characters
-        book.setPrice(10);
-        book.setBookCategory("old book");
-        book.setStatus("active");
-        book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
-        int result = daoBook.AddBook(book);
-        assertEquals(0,result);
-    }
-
-
-    @Test
-    void addBookWithAuthorIsDigit() {
-        DAOBook daoBook = new DAOBook();
-        Book book = new Book();
-        book.setBookName("English");
-        book.setAuthor("1234567890");
-        book.setPrice(10);
-        book.setBookCategory("old book");
-        book.setStatus("active");
-        book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
-        int result = daoBook.AddBook(book);
-        assertEquals(0,result);
-    }
-
-    @Test
-    void addBookWithAuthorContainWhiteSpace() {
-        DAOBook daoBook = new DAOBook();
-        Book book = new Book();
-        book.setBookName("English");
-        book.setAuthor("   "); // 3 spaces
-        book.setPrice(10);
-        book.setBookCategory("old book");
-        book.setStatus("active");
-        book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
-        int result = daoBook.AddBook(book);
-        assertEquals(0,result);
-    }
-
 
     //========================================== Price ================================================
 
+    //AB09
     @Test
     void addBookWithPriceIsNegativeNumber() {
         DAOBook daoBook = new DAOBook();
@@ -284,11 +148,13 @@ public class DAOBookTest {
         book.setBookCategory("old book");
         book.setStatus("active");
         book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
-        int result = daoBook.AddBook(book);
-        assertEquals(0,result);
+        Exception exception = assertThrows(IllegalArgumentException.class,() -> {
+            daoBook.AddBook(book);
+        });
+        assertEquals("Price must be positive", exception.getMessage());
     }
 
+    //AB10
     @Test
     void addBookWithPriceEqualZero() {
         DAOBook daoBook = new DAOBook();
@@ -299,11 +165,13 @@ public class DAOBookTest {
         book.setBookCategory("old book");
         book.setStatus("active");
         book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
-        int result = daoBook.AddBook(book);
-        assertEquals(0 ,result);
+        Exception exception = assertThrows(IllegalArgumentException.class,() -> {
+            daoBook.AddBook(book);
+        });
+        assertEquals("Price must be positive", exception.getMessage());
     }
 
+    //AB11
     @Test
     void addBookWithPriceMinNumber() {
         DAOBook daoBook = new DAOBook();
@@ -314,11 +182,11 @@ public class DAOBookTest {
         book.setBookCategory("old book");
         book.setStatus("active");
         book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
         int result = daoBook.AddBook(book);
         assertEquals(1,result);
     }
 
+    //AB12
     @Test
     void addBookWithPriceMaxNumber() {
         DAOBook daoBook = new DAOBook();
@@ -329,28 +197,28 @@ public class DAOBookTest {
         book.setBookCategory("old book");
         book.setStatus("active");
         book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
         int result = daoBook.AddBook(book);
         assertEquals(1,result);
     }
 
+    //AB13
     @Test
     void addBookWithPriceBeyondMaxNumber() {
         DAOBook daoBook = new DAOBook();
         Book book = new Book();
         book.setBookName("English");
         book.setAuthor("HaiDuc");
-        book.setPrice(10000); // 5 digits
+        book.setPrice(40000); // 5 digits
         book.setBookCategory("old book");
         book.setStatus("active");
         book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             daoBook.AddBook(book);
         });
-        assertEquals("Price must be 4 digits",exception.getMessage());
+        assertEquals("Cannot exceed 4 digits",exception.getMessage());
     }
 
+    //AB14
     @Test()
     void addBookWithPriceIsNonNumeric() {
         DAOBook daoBook = new DAOBook();
@@ -361,7 +229,6 @@ public class DAOBookTest {
         book.setBookCategory("old book");
         book.setStatus("active");
         book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             book.setPrice(Double.parseDouble(priceString));
             daoBook.AddBook(book);
@@ -370,63 +237,9 @@ public class DAOBookTest {
 
     }
 
-    //========================================== BookCategory ================================================
-
-    @Test
-    void addBookWithCategoryIsEmpty() {
-        DAOBook daoBook = new DAOBook();
-        Book book = new Book();
-        book.setBookName("English");
-        book.setAuthor("HaiDuc");
-        book.setPrice(20);
-        book.setBookCategory("");
-        book.setStatus("active");
-        book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            daoBook.AddBook(book);
-        });
-        assertEquals("Cannot be empty", exception.getMessage());
-    }
-
-    //========================================== Status ================================================
-
-    @Test
-    void addBookWithStatusIsEmpty() {
-        DAOBook daoBook = new DAOBook();
-        Book book = new Book();
-        book.setBookName("English");
-        book.setAuthor("HaiDuc");
-        book.setPrice(20);
-        book.setBookCategory("New book");
-        book.setStatus("");
-        book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            daoBook.AddBook(book);
-        });
-        assertEquals("Cannot be empty", exception.getMessage());
-    }
-
     //========================================== Photo ================================================
 
-    @Test
-    void addBookWithPhotoIsEmpty() {
-        DAOBook daoBook = new DAOBook();
-        Book book = new Book();
-        book.setBookName("English");
-        book.setAuthor("HaiDuc");
-        book.setPrice(20);
-        book.setBookCategory("New book");
-        book.setStatus("Active");
-        book.setPhoto("");
-        book.setEmail("haiduc@gmail.com");
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            daoBook.AddBook(book);
-        });
-        assertEquals("Cannot be empty", exception.getMessage());
-    }
-
+    //AB15
     @Test
     void addBookWithPhotoInvalidFormat() {
         DAOBook daoBook = new DAOBook();
@@ -437,20 +250,21 @@ public class DAOBookTest {
         book.setBookCategory("New book");
         book.setStatus("Active");
         book.setPhoto("English.docx");   // sai dinh dang
-        book.setEmail("haiduc@gmail.com");
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             daoBook.AddBook(book);
         });
-        assertEquals("Cannot be empty", exception.getMessage());
+        assertEquals("Invalid format", exception.getMessage());
     }
 
     //===================================== EditBook (HaiDuc) =================================================
     //===================================== Book Object =====================================================
 
+    //EB01
     @Test
     void editBookWithBookNameIsNull() {
         DAOBook daoBook = new DAOBook();
         Book book = new Book();
+        book.setBookId(11);
         book.setAuthor("HaiDuc");
         book.setPrice(10);
         book.setBookCategory("old book");
@@ -462,10 +276,12 @@ public class DAOBookTest {
         assertEquals("Cannot be empty", exception.getMessage());
     }
 
+    //EB02
     @Test
     void editBookWithBookNameIsEmpty() {
         DAOBook daoBook = new DAOBook();
         Book book = new Book();
+        book.setBookId(11);
         book.setBookName("");
         book.setAuthor("HaiDuc");
         book.setPrice(10);
@@ -478,302 +294,200 @@ public class DAOBookTest {
         assertEquals("Cannot be empty",exception.getMessage());
     }
 
-
+    //EB03
     @Test
     void editBookWithBookNameMin() {
         DAOBook daoBook = new DAOBook();
         Book book = new Book();
+        book.setBookId(11);
         book.setBookName("E");
         book.setAuthor("HaiDuc");
         book.setPrice(10);
         book.setBookCategory("old book");
         book.setStatus("active");
         book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
         int result = daoBook.editBook(book);
         assertEquals(1,result);
     }
 
+    //EB04
     @Test
     void editBookWithBookNameMax() {
         DAOBook daoBook = new DAOBook();
         Book book = new Book();
-        book.setBookName("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"); //51 characters
+        book.setBookId(11);
+        book.setBookName("E".repeat(50)); //50 characters
         book.setAuthor("HaiDuc");
         book.setPrice(10);
         book.setBookCategory("old book");
         book.setStatus("active");
         book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
         int result = daoBook.editBook(book);
         assertEquals(1,result);
     }
 
+    //EB05
     @Test
     void editBookWithBookObjectIsValid() {
         DAOBook daoBook = new DAOBook();
         Book book = new Book();
+        book.setBookId(11);
         book.setBookName("English");
         book.setAuthor("HaiDuc");
         book.setPrice(10);
         book.setBookCategory("old book");
         book.setStatus("active");
         book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
         int result = daoBook.editBook(book);
         assertEquals(1,result);
     }
 
+    //EB06
     @Test
     void editBookWithBookNameMoreThan50Characters() {
         DAOBook daoBook = new DAOBook();
         Book book = new Book();
-        book.setBookName("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"); //51 characters
+        book.setBookId(11);
+        book.setBookName("E".repeat(51)); //51 characters
         book.setAuthor("HaiDuc");
         book.setPrice(10);
         book.setBookCategory("old book");
         book.setStatus("active");
         book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             daoBook.editBook(book);
         });
         assertEquals("Cannot exceed 50 characters",exception.getMessage());
     }
 
-
+    //EB07
     @Test
     void editBookWithBookNameIsDigit() {
         DAOBook daoBook = new DAOBook();
         Book book = new Book();
+        book.setBookId(11);
         book.setBookName("1234567890");
         book.setAuthor("HaiDuc");
         book.setPrice(10);
         book.setBookCategory("old book");
         book.setStatus("active");
         book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
         int result = daoBook.editBook(book);
         assertEquals(0,result);
     }
 
+    //EB08
     @Test
     void editBookWithBookNameContainWhiteSpace() {
         DAOBook daoBook = new DAOBook();
         Book book = new Book();
+        book.setBookId(11);
         book.setBookName("   "); // 3 spaces
         book.setAuthor("HaiDuc");
         book.setPrice(10);
         book.setBookCategory("old book");
         book.setStatus("active");
         book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
-        int result = daoBook.editBook(book);
-        assertEquals(0,result);
-    }
-
-    //========================================== Author ================================================
-
-    @Test
-    void editBookWithAuthorIsNull() {
-        DAOBook daoBook = new DAOBook();
-        Book book = new Book();
-        book.setBookName("English");
-        book.setPrice(10);
-        book.setBookCategory("old book");
-        book.setStatus("active");
-        book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
-        Exception   exception = assertThrows(IllegalArgumentException.class,() -> {
-            daoBook.editBook(book);
-        });
-        assertEquals("Cannot be empty", exception.getMessage());
-    }
-
-    @Test
-    void editBookWithAuthorIsEmpty() {
-        DAOBook daoBook = new DAOBook();
-        Book book = new Book();
-        book.setBookName("English");
-        book.setAuthor("");
-        book.setPrice(10);
-        book.setBookCategory("old book");
-        book.setStatus("active");
-        book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            daoBook.editBook(book);
-        });
-        assertEquals("Cannot be empty", exception.getMessage());
-    }
-
-
-    @Test
-    void editBookWithAuthorMin() {
-        DAOBook daoBook = new DAOBook();
-        Book book = new Book();
-        book.setBookName("English");
-        book.setAuthor("Hai");
-        book.setPrice(10);
-        book.setBookCategory("old book");
-        book.setStatus("active");
-        book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
-        int result = daoBook.editBook(book);
-        assertEquals(1,result);
-    }
-
-    @Test
-    void editBookWithAuthorMax() {
-        DAOBook daoBook = new DAOBook();
-        Book book = new Book();
-        book.setBookName("English"); //51 characters
-        book.setAuthor("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH"); // 50 characters
-        book.setPrice(10);
-        book.setBookCategory("old book");
-        book.setStatus("active");
-        book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
-        int result = daoBook.editBook(book);
-        assertEquals(1,result);
-    }
-
-    @Test
-    void editBookWithAuthorMoreThan50Characters() {
-        DAOBook daoBook = new DAOBook();
-        Book book = new Book();
-        book.setBookName("English"); //51 characters
-        book.setAuthor("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH"); // 51 characters
-        book.setPrice(10);
-        book.setBookCategory("old book");
-        book.setStatus("active");
-        book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
-        int result = daoBook.editBook(book);
-        assertEquals(0,result);
-    }
-
-
-    @Test
-    void editBookWithAuthorIsDigit() {
-        DAOBook daoBook = new DAOBook();
-        Book book = new Book();
-        book.setBookName("English");
-        book.setAuthor("1234567890");
-        book.setPrice(10);
-        book.setBookCategory("old book");
-        book.setStatus("active");
-        book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
-        int result = daoBook.editBook(book);
-        assertEquals(0,result);
-    }
-
-    @Test
-    void editBookWithAuthorContainWhiteSpace() {
-        DAOBook daoBook = new DAOBook();
-        Book book = new Book();
-        book.setBookName("English");
-        book.setAuthor("   "); // 3 spaces
-        book.setPrice(10);
-        book.setBookCategory("old book");
-        book.setStatus("active");
-        book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
         int result = daoBook.editBook(book);
         assertEquals(0,result);
     }
 
     //========================================== Price ================================================
 
+    //EB09
     @Test
     void editBookWithPriceIsNegativeNumber() {
         DAOBook daoBook = new DAOBook();
         Book book = new Book();
+        book.setBookId(11);
         book.setBookName("English");
         book.setAuthor("HaiDuc");
         book.setPrice(-1);
         book.setBookCategory("old book");
         book.setStatus("active");
         book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
         int result = daoBook.editBook(book);
         assertEquals(0,result);
     }
 
+    //EB10
     @Test
     void editBookWithPriceEqualZero() {
         DAOBook daoBook = new DAOBook();
         Book book = new Book();
+        book.setBookId(11);
         book.setBookName("English");
         book.setAuthor("HaiDuc");
         book.setPrice(0);
         book.setBookCategory("old book");
         book.setStatus("active");
         book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
         int result = daoBook.editBook(book);
         assertEquals(0 ,result);
     }
 
+    //EB11
     @Test
     void editBookWithPriceMinNumber() {
         DAOBook daoBook = new DAOBook();
         Book book = new Book();
+        book.setBookId(11);
         book.setBookName("English");
         book.setAuthor("HaiDuc");
         book.setPrice(1); // 1 digit
         book.setBookCategory("old book");
         book.setStatus("active");
         book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
         int result = daoBook.editBook(book);
         assertEquals(1,result);
     }
 
+    //EB12
     @Test
     void editBookWithPriceMaxNumber() {
         DAOBook daoBook = new DAOBook();
         Book book = new Book();
+        book.setBookId(11);
         book.setBookName("English");
         book.setAuthor("HaiDuc");
         book.setPrice(1000); // 4 digits
         book.setBookCategory("old book");
         book.setStatus("active");
         book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
         int result = daoBook.editBook(book);
         assertEquals(1,result);
     }
 
+    //EB13
     @Test
     void editBookWithPriceBeyondMaxNumber() {
         DAOBook daoBook = new DAOBook();
         Book book = new Book();
+        book.setBookId(11);
         book.setBookName("English");
         book.setAuthor("HaiDuc");
         book.setPrice(10000); // 5 digits
         book.setBookCategory("old book");
         book.setStatus("active");
         book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             daoBook.editBook(book);
         });
         assertEquals("Price must be 4 digits",exception.getMessage());
     }
 
+    //EB14
     @Test()
     void editBookWithPriceIsNonNumeric() {
         DAOBook daoBook = new DAOBook();
         Book book = new Book();
+        book.setBookId(11);
         book.setBookName("English");
         book.setAuthor("HaiDuc");
         String priceString = "abc";
         book.setBookCategory("old book");
         book.setStatus("active");
         book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             book.setPrice(Double.parseDouble(priceString));
             daoBook.editBook(book);
@@ -782,22 +496,4 @@ public class DAOBookTest {
 
     }
 
-    //========================================== Status ================================================
-
-    @Test
-    void editBookWithStatusIsEmpty() {
-        DAOBook daoBook = new DAOBook();
-        Book book = new Book();
-        book.setBookName("English");
-        book.setAuthor("HaiDuc");
-        book.setPrice(20);
-        book.setBookCategory("New book");
-        book.setStatus("");
-        book.setPhoto("english.jpg");
-        book.setEmail("haiduc@gmail.com");
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            daoBook.editBook(book);
-        });
-        assertEquals("Cannot be empty", exception.getMessage());
-    }
 }

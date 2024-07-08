@@ -22,20 +22,9 @@ public class DAOBook extends DBConnect {
             throw new IllegalArgumentException("Cannot be empty");
         }
 
-        // Check for book name length
-        if (book.getBookName().length() > 50) {
-            throw new IllegalArgumentException("Cannot exceed 50 characters");
-        }
-
-        // Check if bookName is entirely digits
-        if (book.getBookName().matches("\\d+")) {
-            return 0;
-//            throw new IllegalArgumentException("Cannot be entirely numeric");
-        }
-
         // Check if price is zero or negative
         if (book.getPrice() <= 0) {
-            return 0;
+            throw new IllegalArgumentException("Price must be positive");
         }
 
         int n = 0;
