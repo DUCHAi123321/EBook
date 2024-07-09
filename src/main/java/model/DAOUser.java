@@ -12,6 +12,9 @@ import java.util.logging.Logger;
 public class DAOUser extends DBConnect {
 
     public int userRegister(User user) {
+        if (user == null) {
+            throw new IllegalArgumentException("User cannot be null");
+        }
         int n = 0;
         PreparedStatement pre;
         String sql = "INSERT INTO [users]\n"
@@ -27,8 +30,8 @@ public class DAOUser extends DBConnect {
             pre.setString(3, user.getPhonenumber());
             pre.setString(4, user.getPassword());
             n = pre.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.print(ex.getMessage());
+        } catch (Exception ex) {
+            System.err.print("SQLException");
         }
         return n;
     }
