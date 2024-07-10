@@ -10,27 +10,27 @@ import java.util.Vector;
 public class DAOOrderItem extends DBConnect {
 
     public int createOrderItem(OrderItem orderItem) {
+        if (orderItem == null) {
+            throw new IllegalArgumentException("orderItem cannot be null");
+        }
+        if (orderItem.getQuantity() < 0 || orderItem.getListPrice() < 0) {
+            throw new IllegalArgumentException("this cannot be negative");
+        }
         String insertOrderItemQuery = "INSERT INTO orderitem (orderid, itemid, bookid, listprice, quantity) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement pre;
         try {
             pre = conn.prepareStatement(insertOrderItemQuery);
             int nextItemId = getNextItemId(orderItem.getOrderId());
-
             pre.setInt(1, orderItem.getOrderId());
             pre.setInt(2, nextItemId);
             pre.setInt(3, orderItem.getBookId());
             pre.setDouble(4, orderItem.getListPrice());
             pre.setInt(5, orderItem.getQuantity());
-
-            // Execute the insert statement
             pre.executeUpdate();
-
-            // Return the manually generated item ID
-            return nextItemId;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle the exception appropriately, e.g., log it or throw a custom exception
-            return -1; // Return a sentinel value indicating failure
+            return 1;
+        } catch (Exception ex) {
+            System.err.print("SQLException");
+            return 0;
         }
     }
 
