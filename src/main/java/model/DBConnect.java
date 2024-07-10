@@ -14,13 +14,13 @@ public class DBConnect {
     Connection conn = null;
 
     public DBConnect() {
-        this("jdbc:sqlserver://localhost:1433;databaseName=EBook", "sa", "sa");
+        this("jdbc:sqlserver://localhost:1433;databaseName=EBook", "sa", "123");
     }
 
     public DBConnect(String url, String name, String password) {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=EBook", "sa", "sa");
+            conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=EBook", "sa", "123");
             System.out.print("connected");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
